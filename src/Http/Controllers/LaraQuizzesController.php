@@ -11,9 +11,9 @@ class LaraQuizzesController extends Controller
         return LaraQuiz::all();
     }
 
-    public function show(int $id)
+    public function show(LaraQuiz $quiz)
     {
-        return LaraQuiz::find($id);
+        return $quiz;
     }
 
     public function store()
