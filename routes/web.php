@@ -11,4 +11,6 @@ use JamesNM\LaraQuiz\Http\Controllers\QuestionsController;
 
     // Question Routes
     Route::post('/lara-quizzes/{quiz}/questions', [QuestionsController::class, 'store'])->name('lara-quizzes-questions.store');
+    Route::get('/lara-quizzes/{quiz}/questions', [QuestionsController::class, 'index'])->name('lara-quizzes-questions.index');
+
 

@@ -46,7 +46,7 @@ class LaraQuizTest extends TestCase
     {
         factory(LaraQuiz::class)->create();
 
-        $this->get(route('lara-quizzes.index'))->assertStatus(200);
+        $this->get(route('lara-quizzes.index'))->assertOk();
     }
 
     /** @test */
@@ -91,9 +91,9 @@ class LaraQuizTest extends TestCase
     public function it_can_view_a_quizzes_questions()
     {
         $quiz = factory(LaraQuiz::class)->create();
-        $question = factory(Question::class)->create(['quiz_id' => $quiz->id]);
+        factory(Question::class)->create(['quiz_id' => $quiz->id]);
 
-        $this->get(route('lara-quizzes-questions.show'))->assertSee($question->question);
+        $this->get(route('lara-quizzes-questions.index', $quiz))->assertOk();
     }
 
     /** @test */
