@@ -28,6 +28,11 @@ class LaraQuizzesController extends Controller
 
     public function update(LaraQuiz $quiz)
     {
-        $quiz->update(request()->all());
+        return $quiz->update(request()->all());
+    }
+
+    public function destroy(LaraQuiz $quiz)
+    {
+        return $quiz->delete();
     }
 }

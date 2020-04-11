@@ -12,6 +12,11 @@ class QuestionsController extends Controller
         return $quiz->questions;
     }
 
+    public function show(Question $question)
+    {
+        return $question;
+    }
+
     public function store(LaraQuiz $quiz)
     {
         return $quiz->questions()->create(request()->all());
@@ -19,6 +24,11 @@ class QuestionsController extends Controller
 
     public function update(Question $question)
     {
-        $question->update(request()->all());
+        return $question->update(request()->all());
+    }
+
+    public function destroy(Question $question)
+    {
+        return $question->delete();
     }
 }
