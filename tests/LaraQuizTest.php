@@ -21,9 +21,11 @@ class LaraQuizTest extends TestCase
     {
         include_once __DIR__.'/../database/migrations/create_lara_quizzes_table.php.stub';
         include_once __DIR__.'/../database/migrations/create_lara_quiz_questions_table.php.stub';
+        include_once __DIR__.'/../database/migrations/create_lara_quiz_question_choices_table.php.stub';
 
         (new \CreateLaraQuizzesTable)->up();
         (new \CreateLaraQuizQuestionsTable)->up();
+        (new \CreateLaraQuizQuestionChoicesTable)->up();
     }
 
     /** @test */
@@ -70,6 +72,21 @@ class LaraQuizTest extends TestCase
         $this->assertDatabaseHas('lara_quizzes', $quiz);
     }
 
+    /** @test */
+    public function it_can_update_a_quiz()
+    {
+        $quiz = factory(LaraQuiz::class)->create();
+
+        $attributes = [
+            'name' => "Updated name",
+            'description' => "Updated description"
+        ];
+
+        $this->put(route('lara-quizzes.update', ['quiz' => $quiz]), $attributes);
+
+        $this->assertDatabaseHas('lara_quizzes', $attributes);
+    }
+
     // Questions Test
 
     /** @test */
@@ -82,7 +99,7 @@ class LaraQuizTest extends TestCase
             'question' => "Do you like cheese ?",
         ];
 
-        $this->post(route('lara-quizzes-questions.store',  ['quiz' => $quiz->id, 'question' => $question]));
+        $this->post(route('lara-quizzes-questions.store', ['quiz' => $quiz->id]), $question);
 
         $this->assertDatabaseHas('lara_quiz_questions', $question);
     }
@@ -90,10 +107,42 @@ class LaraQuizTest extends TestCase
     /** @test */
     public function it_can_view_a_quizzes_questions()
     {
-        $quiz = factory(LaraQuiz::class)->create();
-        factory(Question::class)->create(['quiz_id' => $quiz->id]);
+        $question = factory(Question::class)->create();
 
-        $this->get(route('lara-quizzes-questions.index', $quiz))->assertOk();
+        $this->get(route('lara-quizzes-questions.index', $question->quiz_id))->assertOk();
+    }
+
+    /** @test */
+    public function it_can_update_a_quizzes_question()
+    {
+        $question = factory(Question::class)->create();
+
+        $attributes = [
+            'question' => "Updated question"
+        ];
+
+        $this->put(route('lara-quizzes-questions.update', $question->id), $attributes);
+
+        $this->assertDatabaseHas('lara_quiz_questions', $attributes);
+    }
+
+    /** Quiz Question Choices */
+
+    /** @test */
+    public function it_can_create_a_quiz_question_choice()
+    {
+        $this->withoutExceptionHandling();
+        $question = factory(Question::class)->create();
+
+        $choice = [
+            'question_id' => $question->id,
+            'choice' => "Yes",
+            "is_correct_choice" => true
+        ];
+
+        $this->post(route('lara-quizzes-questions-choices.store', ['question' => $question->id]), $choice);
+
+        $this->assertDatabaseHas('lara_quiz_question_choices', $choice);
     }
 
     /** @test */

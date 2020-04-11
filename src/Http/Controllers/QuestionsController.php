@@ -3,6 +3,7 @@
 
 namespace JamesNM\LaraQuiz\Http\Controllers;
 use JamesNM\LaraQuiz\Models\LaraQuiz;
+use JamesNM\LaraQuiz\Models\Question;
 
 class QuestionsController extends Controller
 {
@@ -13,6 +14,11 @@ class QuestionsController extends Controller
 
     public function store(LaraQuiz $quiz)
     {
-        return $quiz->questions()->create(request('question'));
+        return $quiz->questions()->create(request()->all());
+    }
+
+    public function update(Question $question)
+    {
+        $question->update(request()->all());
     }
 }

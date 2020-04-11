@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLaraQuizQuestionsTable extends Migration
+class CreateLaraQuizQuestionChoicesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class CreateLaraQuizQuestionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('lara_quiz_questions', function (Blueprint $table) {
+        Schema::create('lara_quiz_question_choices', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('quiz_id');
-            $table->string('question');
+            $table->unsignedBigInteger('question_id');
+            $table->string('choice');
+            $table->boolean('is_correct_choice');
             $table->timestamps();
         });
     }
@@ -28,6 +29,6 @@ class CreateLaraQuizQuestionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('lara_quiz_questions');
+        Schema::dropIfExists('lara_quiz_question_choices');
     }
 }

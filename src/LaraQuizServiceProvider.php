@@ -42,6 +42,7 @@ class LaraQuizServiceProvider extends ServiceProvider
                 $this->publishes([
                     __DIR__ . '/../database/migrations/create_lara_quizzes_table.php.stub' => database_path('migrations/' . date('Y_m_d_His', time()) . '_create_lara_quizzes_table.php'),
                     __DIR__ . '/../database/migrations/create_lara_quiz_questions_table.php.stub' => database_path('migrations/' . date('Y_m_d_His', time()) . '_create_lara_quiz_questions_table.php'),
+                    __DIR__ . '/../database/migrations/create_lara_quiz_question_choices_table.php.stub' => database_path('migrations/' . date('Y_m_d_His', time()) . '_create_lara_quiz_question_choices_table.php'),
                     // you can add any number of migrations here
                 ], 'migrations');
             }

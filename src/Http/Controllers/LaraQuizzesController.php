@@ -25,4 +25,9 @@ class LaraQuizzesController extends Controller
 
         return LaraQuiz::create($attributes);
     }
+
+    public function update(LaraQuiz $quiz)
+    {
+        $quiz->update(request()->all());
+    }
 }
