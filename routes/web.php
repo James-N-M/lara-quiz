@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use JamesNM\LaraQuiz\Http\Controllers\ChoicesController;
 use JamesNM\LaraQuiz\Http\Controllers\LaraQuizzesController;
 use JamesNM\LaraQuiz\Http\Controllers\QuestionsController;
+use JamesNM\LaraQuiz\Http\Controllers\UserQuestionAnswerController;
 
 // Quizzes
 Route::get('/lara-quizzes', [LaraQuizzesController::class, 'index'])->name('lara-quizzes.index');
@@ -25,6 +26,9 @@ Route::get('/questions/{question}/choices', [ChoicesController::class, 'index'])
 Route::post('/questions/{question}/choices', [ChoicesController::class, 'store'])->name('lara-quizzes-questions-choices.store');
 Route::put('/choices/{choice}', [ChoicesController::class, 'update'])->name('lara-quizzes-questions-choices.update');
 Route::delete('/choices/{choice}', [LaraQuizzesController::class, 'destroy'])->name('lara-quizzes-questions-choices.destroy');
+
+// User Quiz Question Answers
+Route::post('/lara-quizzes/answers', [UserQuestionAnswerController::class, 'store'])->name('lara-quizzes-question-answers.store');
 
 
 

@@ -23,10 +23,12 @@ class LaraQuizTest extends TestCase
         include_once __DIR__.'/../database/migrations/create_lara_quizzes_table.php.stub';
         include_once __DIR__.'/../database/migrations/create_lara_quiz_questions_table.php.stub';
         include_once __DIR__.'/../database/migrations/create_lara_quiz_question_choices_table.php.stub';
+        include_once __DIR__.'/../database/migrations/create_lara_quiz_user_question_answers_table.php.stub';
 
         (new \CreateLaraQuizzesTable)->up();
         (new \CreateLaraQuizQuestionsTable)->up();
         (new \CreateLaraQuizQuestionChoicesTable)->up();
+        (new \CreateLaraQuizUserQuestionAnswerTable)->up();
     }
 
     /** @test */
@@ -206,6 +208,26 @@ class LaraQuizTest extends TestCase
     }
 
     /* User Question Answers **/
+
+    /** @test */
+    public function it_can_save_a_users_quiz_question_answers()
+    {
+        $this->withoutExceptionHandling();
+
+        $question = factory(Question::class)->create();
+        $questionTwo = factory(Question::class)->create(['quiz_id' => $question->quiz_id]);
+
+        $questionOneChoice = factory(Choice::class)->create(['question_id' => $question->id]);
+        $questionTwoChoice = factory(Choice::class)->create(['question_id' => $questionTwo->id]);
+
+        $userQuestionAnswers = [
+            $questionOneChoice->id,
+            $questionTwoChoice->id,
+        ];
+
+        $this->post(route('lara-quizzes-question-answers.store'), $userQuestionAnswers);
+        $this->assertDatabaseHas('lara_quiz_user_question_answers', ['choice_id' => $questionOneChoice->id]);
+    }
 
     /** @test */
     public function true_is_true()
