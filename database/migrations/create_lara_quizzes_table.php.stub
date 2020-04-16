@@ -17,6 +17,8 @@ class CreateLaraQuizzesTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('description')->unique();
+            $table->unsignedBigInteger('creator_id');
+            $table->string('creator_type');
             $table->timestamps();
         });
     }

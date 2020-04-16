@@ -24,19 +24,24 @@ class LaraQuizTest extends TestCase
         include_once __DIR__.'/../database/migrations/create_lara_quiz_questions_table.php.stub';
         include_once __DIR__.'/../database/migrations/create_lara_quiz_question_choices_table.php.stub';
         include_once __DIR__.'/../database/migrations/create_lara_quiz_user_question_answers_table.php.stub';
+        include_once __DIR__ . '/../database/migrations/create_users_table.php.stub';
 
         (new \CreateLaraQuizzesTable)->up();
         (new \CreateLaraQuizQuestionsTable)->up();
         (new \CreateLaraQuizQuestionChoicesTable)->up();
         (new \CreateLaraQuizUserQuestionAnswerTable)->up();
+        (new \CreateUsersTable)->up();
     }
 
     /** @test */
     public function it_can_access_the_database()
     {
+        $user = factory(User::class)->create();
         $quiz = new LaraQuiz();
         $quiz->name = "Quiz Name";
         $quiz->description = "this is a description of a laravel quiz";
+        $quiz->creator_id = $user->id;
+        $quiz->creator_type = get_class($user);
         $quiz->save();
 
         $newQuiz = LaraQuiz::find($quiz->id);
@@ -63,14 +68,17 @@ class LaraQuizTest extends TestCase
     }
 
     /** @test */
-    public function it_can_create_a_quiz()
+    public function authenticated_users_can_create_a_quiz()
     {
+        $this->withoutExceptionHandling();
+        $creator = factory(User::class)->create();
+
         $quiz = [
           'name' => "Quiz name",
           'description' => "Quiz Description",
         ];
 
-        $this->post(route('lara-quizzes.store', $quiz));
+        $this->actingAs($creator)->post(route('lara-quizzes.store', $quiz));
 
         $this->assertDatabaseHas('lara_quizzes', $quiz);
     }
@@ -98,6 +106,13 @@ class LaraQuizTest extends TestCase
         $this->delete(route('lara-quizzes.destroy', ['quiz' => $quiz]));
 
         $this->assertDatabaseMissing('lara_quizzes', ['name' => 'Delete me']);
+    }
+
+    /* @test */
+    function a_quiz_has_a_creator_type()
+    {
+        $quiz = factory(LaraQuiz::class)->create(['author_type' => "Fake\User"]);
+        $this->assertEquals('Fake\User', $quiz->creator_type);
     }
 
     // Questions Test
@@ -212,8 +227,6 @@ class LaraQuizTest extends TestCase
     /** @test */
     public function it_can_save_a_users_quiz_question_answers()
     {
-        $this->withoutExceptionHandling();
-
         $question = factory(Question::class)->create();
         $questionTwo = factory(Question::class)->create(['quiz_id' => $question->quiz_id]);
 

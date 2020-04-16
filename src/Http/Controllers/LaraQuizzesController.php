@@ -23,7 +23,7 @@ class LaraQuizzesController extends Controller
             'description'  => 'required',
         ]);
 
-        return LaraQuiz::create($attributes);
+        return auth()->user()->quizzes()->create($attributes);
     }
 
     public function update(LaraQuiz $quiz)

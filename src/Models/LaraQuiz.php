@@ -10,6 +10,11 @@ class LaraQuiz extends Model
 
     protected $guarded = [];
 
+    public function creator()
+    {
+        return $this->morphTo();
+    }
+
     public function questions()
     {
         return $this->hasMany(Question::class, 'id', 'quiz_id');
