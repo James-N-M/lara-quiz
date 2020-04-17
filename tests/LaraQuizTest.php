@@ -29,7 +29,7 @@ class LaraQuizTest extends TestCase
         (new \CreateLaraQuizzesTable)->up();
         (new \CreateLaraQuizQuestionsTable)->up();
         (new \CreateLaraQuizQuestionChoicesTable)->up();
-        (new \CreateLaraQuizUserQuestionAnswerTable)->up();
+        (new \CreateLaraQuizUserQuestionAnswersTable)->up();
         (new \CreateUsersTable)->up();
     }
 
@@ -238,7 +238,7 @@ class LaraQuizTest extends TestCase
             $questionTwoChoice->id,
         ];
 
-        $this->post(route('lara-quizzes-question-answers.store'), $userQuestionAnswers);
+        $this->actingAs(factory(User::class)->create())->post(route('lara-quizzes-question-answers.store'), $userQuestionAnswers);
         $this->assertDatabaseHas('lara_quiz_user_question_answers', ['choice_id' => $questionOneChoice->id]);
     }
 

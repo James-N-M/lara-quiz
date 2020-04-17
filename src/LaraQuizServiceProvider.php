@@ -19,6 +19,7 @@ class LaraQuizServiceProvider extends ServiceProvider
          */
         // $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'lara-quiz');
         // $this->loadViewsFrom(__DIR__.'/../resources/views', 'lara-quiz');
+        $this->loadViewsFrom(__DIR__.'/../resources/views', 'laraquizpackage');
         // $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
         // $this->loadRoutesFrom(__DIR__.'/routes.php');
 
@@ -43,6 +44,7 @@ class LaraQuizServiceProvider extends ServiceProvider
                     __DIR__ . '/../database/migrations/create_lara_quizzes_table.php.stub' => database_path('migrations/' . date('Y_m_d_His', time()) . '_create_lara_quizzes_table.php'),
                     __DIR__ . '/../database/migrations/create_lara_quiz_questions_table.php.stub' => database_path('migrations/' . date('Y_m_d_His', time()) . '_create_lara_quiz_questions_table.php'),
                     __DIR__ . '/../database/migrations/create_lara_quiz_question_choices_table.php.stub' => database_path('migrations/' . date('Y_m_d_His', time()) . '_create_lara_quiz_question_choices_table.php'),
+                    __DIR__ . '/../database/migrations/create_lara_quiz_user_question_answers_table.php.stub' => database_path('migrations/' . date('Y_m_d_His', time()) . '_create_lara_quiz_user_question_answers_table.php'),
                     // you can add any number of migrations here
                 ], 'migrations');
             }

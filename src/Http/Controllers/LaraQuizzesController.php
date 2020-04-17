@@ -8,7 +8,8 @@ class LaraQuizzesController extends Controller
 {
     public function index()
     {
-        return LaraQuiz::all();
+        $quizzes = LaraQuiz::all();
+        return view('laraquizpackage::quizzes.index', compact('quizzes'));
     }
 
     public function show(LaraQuiz $quiz)
