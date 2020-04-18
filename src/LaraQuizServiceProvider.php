@@ -27,7 +27,7 @@ class LaraQuizServiceProvider extends ServiceProvider
         $this->app->make('Illuminate\Database\Eloquent\Factory')->load(__DIR__ . '/../database/factories');
 
         Route::group([
-            'middleware' => ['bindings'],
+            'middleware' => ['web', 'bindings',],
         ], function () {
             $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
         });

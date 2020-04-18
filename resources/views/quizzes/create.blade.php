@@ -1,6 +1,7 @@
 <h1>Create a Quiz</h1>
 
 <form method="POST" action="{{route('lara-quizzes.store')}}">
+    @csrf
     <label for="name">Name</label>
     <input id="name" type="text" name="name">
 

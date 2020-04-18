@@ -31,8 +31,7 @@ class LaraQuizzesController extends Controller
 
         auth()->user()->quizzes()->create($attributes);
 
-        die();
-        // return redirect(route('lara-quizzes.index'));
+        return redirect(route('lara-quizzes.index'));
     }
 
     public function update(LaraQuiz $quiz)
