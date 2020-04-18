@@ -17,6 +17,6 @@ class LaraQuiz extends Model
 
     public function questions()
     {
-        return $this->hasMany(Question::class, 'id', 'quiz_id');
+        return $this->hasMany(Question::class, 'quiz_id');
     }
 }

@@ -68,9 +68,14 @@ class LaraQuizTest extends TestCase
     }
 
     /** @test */
+    public function authenticated_users_can_access_create_quiz_page()
+    {
+        $this->get('/lara-quizzes/create')->assertOk();
+    }
+
+    /** @test */
     public function authenticated_users_can_create_a_quiz()
     {
-        $this->withoutExceptionHandling();
         $creator = factory(User::class)->create();
 
         $quiz = [

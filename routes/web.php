@@ -8,6 +8,7 @@ use JamesNM\LaraQuiz\Http\Controllers\UserQuestionAnswerController;
 
 // Quizzes
 Route::get('/lara-quizzes', [LaraQuizzesController::class, 'index'])->name('lara-quizzes.index');
+Route::get('/lara-quizzes/create', [LaraQuizzesController::class, 'create'])->name('lara-quizzes.create');
 Route::get('/lara-quizzes/{quiz}', [LaraQuizzesController::class, 'show'])->name('lara-quizzes.show');
 Route::post('/lara-quizzes', [LaraQuizzesController::class, 'store'])->name('lara-quizzes.store');
 Route::put('/lara-quizzes/{quiz}', [LaraQuizzesController::class, 'update'])->name('lara-quizzes.update');

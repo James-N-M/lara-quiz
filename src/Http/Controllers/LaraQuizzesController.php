@@ -14,7 +14,12 @@ class LaraQuizzesController extends Controller
 
     public function show(LaraQuiz $quiz)
     {
-        return $quiz;
+        return view('laraquizpackage::quizzes.show', compact('quiz'));
+    }
+
+    public function create()
+    {
+        return view('laraquizpackage::quizzes.create');
     }
 
     public function store()
@@ -24,7 +29,10 @@ class LaraQuizzesController extends Controller
             'description'  => 'required',
         ]);
 
-        return auth()->user()->quizzes()->create($attributes);
+        auth()->user()->quizzes()->create($attributes);
+
+        die();
+        // return redirect(route('lara-quizzes.index'));
     }
 
     public function update(LaraQuiz $quiz)
