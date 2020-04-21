@@ -2,6 +2,7 @@
 
 
 namespace JamesNM\LaraQuiz\Http\Controllers;
+use JamesNM\LaraQuiz\Models\Choice;
 use JamesNM\LaraQuiz\Models\LaraQuiz;
 use JamesNM\LaraQuiz\Models\Question;
 
@@ -17,9 +18,33 @@ class QuestionsController extends Controller
         return $question;
     }
 
-    public function store(LaraQuiz $quiz)
+    public function create()
     {
-        return $quiz->questions()->create(request()->all());
+        return view('laraquizpackage::questions.create');
+    }
+
+    public function store()
+    {
+        $attributes = request()->validate([
+            'question' => 'required',
+        ]);
+
+        $question = Question::create($attributes);
+
+        for ($choice = 1; $choice <= 4 ; $choice++) {
+            $choiceText = request()->input('choice_text_' . $choice, '');
+            $isCorrectChoice = request()->input('correct_' . $choice);
+
+            if ($choice != '') {
+                Choice::create([
+                   'question_id' => $question->id,
+                   'choice' => $choiceText,
+                   'is_correct_choice' => $isCorrectChoice
+                ]);
+            }
+        }
+
+        return redirect(route('lara-quizzes.index'));
     }
 
     public function update(Question $question)

@@ -15,9 +15,10 @@ Route::put('/lara-quizzes/{quiz}', [LaraQuizzesController::class, 'update'])->na
 Route::delete('/lara-quizzes/{quiz}', [LaraQuizzesController::class, 'destroy'])->name('lara-quizzes.destroy');
 
 // Questions
-Route::get('/lara-quizzes/{quiz}/questions', [QuestionsController::class, 'index'])->name('lara-quizzes-questions.index');
+Route::get('/lara-quizzes/questions', [QuestionsController::class, 'index'])->name('lara-quizzes-questions.index');
+Route::get('/lara-quizzes/questions/create', [QuestionsController::class, 'create'])->name('lara-quizzes-questions.create');
+Route::post('/lara-quizzes/questions', [QuestionsController::class, 'store'])->name('lara-quizzes-questions.store');
 Route::get('/lara-quizzes/questions/{question}', [QuestionsController::class, 'show'])->name('lara-quizzes-questions.show');
-Route::post('/lara-quizzes/{quiz}/questions', [QuestionsController::class, 'store'])->name('lara-quizzes-questions.store');
 Route::put('/questions/{question}', [QuestionsController::class, 'update'])->name('lara-quizzes-questions.update');
 Route::delete('/questions/{question}', [QuestionsController::class, 'destroy'])->name('lara-quizzes-questions.destroy');
 

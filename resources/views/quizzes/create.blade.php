@@ -1,11 +1,20 @@
-<h1>Create a Quiz</h1>
+@extends('layouts.app')
 
-<form method="POST" action="{{route('lara-quizzes.store')}}">
-    @csrf
-    <label for="name">Name</label>
-    <input id="name" type="text" name="name">
+@section('content')
+    <h1>Create a Quiz</h1>
 
-    <label for="description">Description</label>
-    <input id="description" type="text" name="description">
-    <input type="submit" value="Submit">
-</form>
+    <form method="POST" action="{{route('lara-quizzes.store')}}">
+        @csrf
+        <div class="form-group">
+            <label for="name">Quiz Name</label>
+            <input name="name" type="text" class="form-control" id="name" placeholder="Javascript level one quiz">
+        </div>
+
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea name="description" class="form-control" id="description" rows="3"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Create Quiz</button>
+    </form>
+@endsection

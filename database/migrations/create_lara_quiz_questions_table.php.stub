@@ -15,7 +15,6 @@ class CreateLaraQuizQuestionsTable extends Migration
     {
         Schema::create('lara_quiz_questions', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('quiz_id');
             $table->string('question');
             $table->timestamps();
         });

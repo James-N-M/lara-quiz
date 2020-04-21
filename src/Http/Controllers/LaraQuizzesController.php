@@ -3,6 +3,7 @@
 namespace JamesNM\LaraQuiz\Http\Controllers;
 
 use JamesNM\LaraQuiz\Models\LaraQuiz;
+use JamesNM\LaraQuiz\Models\Question;
 
 class LaraQuizzesController extends Controller
 {
@@ -26,7 +27,7 @@ class LaraQuizzesController extends Controller
     {
         $attributes = request()->validate([
             'name' => 'required',
-            'description'  => 'required',
+            'description'  => 'required'
         ]);
 
         auth()->user()->quizzes()->create($attributes);
