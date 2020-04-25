@@ -3,6 +3,7 @@
 namespace JamesNM\LaraQuiz\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use JamesNM\LaraQuiz\Models\QuestionQuiz;
 
 class LaraQuiz extends Model
 {
@@ -17,6 +18,6 @@ class LaraQuiz extends Model
 
     public function questions()
     {
-        return $this->hasMany(Question::class, 'quiz_id');
+        return $this->belongsToMany(Question::class, 'lara_quiz_question_quiz', 'quiz_id', 'question_id');
     }
 }

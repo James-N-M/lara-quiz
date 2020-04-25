@@ -15,6 +15,15 @@
             <textarea name="description" class="form-control" id="description" rows="3"></textarea>
         </div>
 
+        <div class="form-group">
+            <label for="questions">Questions</label>
+            <select multiple name="questions[]" class="form-control" id="questions">
+                @foreach($questions as $question)
+                    <option value="{{$question->id}}">{{$question->question}}</option>
+                @endforeach
+            </select>
+        </div>
+
         <button type="submit" class="btn btn-primary">Create Quiz</button>
     </form>
 @endsection

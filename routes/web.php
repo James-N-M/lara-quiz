@@ -7,21 +7,25 @@ use JamesNM\LaraQuiz\Http\Controllers\QuestionsController;
 use JamesNM\LaraQuiz\Http\Controllers\UserQuestionAnswerController;
 
 // Quizzes
-Route::get('/lara-quizzes', [LaraQuizzesController::class, 'index'])->name('lara-quizzes.index');
-Route::get('/lara-quizzes/create', [LaraQuizzesController::class, 'create'])->name('lara-quizzes.create');
-Route::get('/lara-quizzes/{quiz}', [LaraQuizzesController::class, 'show'])->name('lara-quizzes.show');
-Route::post('/lara-quizzes', [LaraQuizzesController::class, 'store'])->name('lara-quizzes.store');
-Route::put('/lara-quizzes/{quiz}', [LaraQuizzesController::class, 'update'])->name('lara-quizzes.update');
-Route::delete('/lara-quizzes/{quiz}', [LaraQuizzesController::class, 'destroy'])->name('lara-quizzes.destroy');
+Route::prefix('lara-quiz')->group(function () {
+    Route::get('/quizzes', [LaraQuizzesController::class, 'index'])->name('lara-quizzes.index');
+    Route::get('/quizzes/create', [LaraQuizzesController::class, 'create'])->name('lara-quizzes.create');
+    Route::get('/quizzes/{quiz}', [LaraQuizzesController::class, 'show'])->name('lara-quizzes.show');
+    Route::post('/quizzes', [LaraQuizzesController::class, 'store'])->name('lara-quizzes.store');
+    Route::put('/quizzes/{quiz}', [LaraQuizzesController::class, 'update'])->name('lara-quizzes.update');
+    Route::delete('/quizzes/{quiz}', [LaraQuizzesController::class, 'destroy'])->name('lara-quizzes.destroy');
+    Route::get('/questions', [QuestionsController::class, 'index'])->name('lara-quizzes-questions.index');
+    Route::get('/questions/create', [QuestionsController::class, 'create'])->name('lara-quizzes-questions.create');
+    Route::post('/questions', [QuestionsController::class, 'store'])->name('lara-quizzes-questions.store');
+});
+
 
 // Questions
-Route::get('/lara-quizzes/questions', [QuestionsController::class, 'index'])->name('lara-quizzes-questions.index');
-Route::get('/lara-quizzes/questions/create', [QuestionsController::class, 'create'])->name('lara-quizzes-questions.create');
-Route::post('/lara-quizzes/questions', [QuestionsController::class, 'store'])->name('lara-quizzes-questions.store');
+
+
 Route::get('/lara-quizzes/questions/{question}', [QuestionsController::class, 'show'])->name('lara-quizzes-questions.show');
 Route::put('/questions/{question}', [QuestionsController::class, 'update'])->name('lara-quizzes-questions.update');
 Route::delete('/questions/{question}', [QuestionsController::class, 'destroy'])->name('lara-quizzes-questions.destroy');
-
 
 // Question Choices
 Route::get('/questions/{question}/choices', [ChoicesController::class, 'index'])->name('lara-quizzes-questions-choices.index');

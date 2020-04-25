@@ -14,21 +14,16 @@ class LaraQuizServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        /*
-         * Optional methods to load your package assets
-         */
         // $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'lara-quiz');
-        // $this->loadViewsFrom(__DIR__.'/../resources/views', 'lara-quiz');
-        $this->loadViewsFrom(__DIR__.'/../resources/views', 'laraquizpackage');
         // $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
-        // $this->loadRoutesFrom(__DIR__.'/routes.php');
+
+        $this->loadViewsFrom(__DIR__.'/../resources/views', 'laraquizpackage');
 
         // Factories for tests
         $this->app->make('Illuminate\Database\Eloquent\Factory')->load(__DIR__ . '/../database/factories');
 
         Route::group([
-//            'middleware' => ['web', 'bindings',],
-            'middleware' => ['bindings',],
+            'middleware' => ['web', 'bindings',],
         ], function () {
             $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
         });
@@ -46,7 +41,7 @@ class LaraQuizServiceProvider extends ServiceProvider
                     __DIR__ . '/../database/migrations/create_lara_quiz_questions_table.php.stub' => database_path('migrations/' . date('Y_m_d_His', time()) . '_create_lara_quiz_questions_table.php'),
                     __DIR__ . '/../database/migrations/create_lara_quiz_question_choices_table.php.stub' => database_path('migrations/' . date('Y_m_d_His', time()) . '_create_lara_quiz_question_choices_table.php'),
                     __DIR__ . '/../database/migrations/create_lara_quiz_user_question_answers_table.php.stub' => database_path('migrations/' . date('Y_m_d_His', time()) . '_create_lara_quiz_user_question_answers_table.php'),
-                    // you can add any number of migrations here
+                    __DIR__ . '/../database/migrations/create_lara_quiz_question_quiz_table.php.stub' => database_path('migrations/' . date('Y_m_d_His', time()) . '_create_lara_quiz_question_quiz_table.php'),
                 ], 'migrations');
             }
 

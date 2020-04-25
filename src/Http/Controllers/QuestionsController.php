@@ -3,14 +3,14 @@
 
 namespace JamesNM\LaraQuiz\Http\Controllers;
 use JamesNM\LaraQuiz\Models\Choice;
-use JamesNM\LaraQuiz\Models\LaraQuiz;
 use JamesNM\LaraQuiz\Models\Question;
 
 class QuestionsController extends Controller
 {
-    public function index(LaraQuiz $quiz)
+    public function index()
     {
-        return $quiz->questions;
+        $questions = Question::all();
+        return view('laraquizpackage::questions.index', compact('questions'));
     }
 
     public function show(Question $question)

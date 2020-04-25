@@ -20,7 +20,9 @@ class LaraQuizzesController extends Controller
 
     public function create()
     {
-        return view('laraquizpackage::quizzes.create');
+        $questions = Question::all();
+
+        return view('laraquizpackage::quizzes.create', compact('questions'));
     }
 
     public function store()
@@ -30,7 +32,11 @@ class LaraQuizzesController extends Controller
             'description'  => 'required'
         ]);
 
-        auth()->user()->quizzes()->create($attributes);
+        $quiz = auth()->user()->quizzes()->create($attributes);
+
+        foreach(request('questions') as $questionId) {
+            $quiz->questions()->attach($questionId);
+        }
 
         return redirect(route('lara-quizzes.index'));
     }
