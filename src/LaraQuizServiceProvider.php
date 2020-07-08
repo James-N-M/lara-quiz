@@ -19,6 +19,11 @@ class LaraQuizServiceProvider extends ServiceProvider
 
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'laraquizpackage');
 
+        // Publishing the views.
+        $this->publishes([
+            __DIR__.'/../resources/views' => resource_path('views/vendor/lara-quiz'),
+        ], 'views');
+
         // Factories for tests
         $this->app->make('Illuminate\Database\Eloquent\Factory')->load(__DIR__ . '/../database/factories');
 
@@ -27,8 +32,6 @@ class LaraQuizServiceProvider extends ServiceProvider
         ], function () {
             $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
         });
-
-
 
         if ($this->app->runningInConsole()) {
             $this->publishes([
@@ -44,11 +47,6 @@ class LaraQuizServiceProvider extends ServiceProvider
                     __DIR__ . '/../database/migrations/create_lara_quiz_question_quiz_table.php.stub' => database_path('migrations/' . date('Y_m_d_His', time()) . '_create_lara_quiz_question_quiz_table.php'),
                 ], 'migrations');
             }
-
-            // Publishing the views.
-            /*$this->publishes([
-                __DIR__.'/../resources/views' => resource_path('views/vendor/lara-quiz'),
-            ], 'views');*/
 
             // Publishing assets.
             /*$this->publishes([
