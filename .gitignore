@@ -3,3 +3,7 @@ composer.lock
 docs
 vendor
 coverage
+/laravel
+/node_modules
+/phpunit.xml
+.phpunit.result.cache
