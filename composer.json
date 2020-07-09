@@ -25,12 +25,12 @@
     },
     "autoload": {
         "psr-4": {
-            "JamesNM\\LaraQuiz\\": "src"
+            "JamesNM\\LaraQuiz\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "JamesNM\\LaraQuiz\\Tests\\": "tests"
+            "JamesNM\\LaraQuiz\\Tests\\": "tests/"
         }
     },
     "scripts": {

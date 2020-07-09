@@ -3,11 +3,13 @@
 use Illuminate\Support\Facades\Route;
 use JamesNM\LaraQuiz\Http\Controllers\ChoicesController;
 use JamesNM\LaraQuiz\Http\Controllers\LaraQuizzesController;
+use JamesNM\LaraQuiz\Http\Controllers\HomeController;
 use JamesNM\LaraQuiz\Http\Controllers\QuestionsController;
 use JamesNM\LaraQuiz\Http\Controllers\UserQuestionAnswerController;
 
 // Quizzes
 Route::prefix('lara-quiz')->group(function () {
+    Route::get('/', [HomeController::class, 'index'])->name('lara-quiz.index');
     Route::get('/quizzes', [LaraQuizzesController::class, 'index'])->name('lara-quizzes.index');
     Route::get('/quizzes/create', [LaraQuizzesController::class, 'create'])->name('lara-quizzes.create');
     Route::get('/quizzes/{quiz}', [LaraQuizzesController::class, 'show'])->name('lara-quizzes.show');
